@@ -1,6 +1,8 @@
-# Phaser 3 Webpack Project Template
+# Food Jam
 
-A Phaser 3 Project Template
+### Contributions
+
+Forked from Phaser 3 Project Template by Richard Davey.
 
 ### Requirements
 
@@ -12,6 +14,6 @@ Run next commands in your terminal:
 
 | Command | Description |
 |---------|-------------|
-| `npm install` | Install dependencies and launch browser with examples.|
-| `npm start` | Launch browser to show the examples. <br> Press `Ctrl + c` to kill **http-server** process. |
+| `yarn install` | Install dependencies and launch browser with examples.|
+| `yarn start` | Launch browser to show the examples. <br> Press `Ctrl + c` to kill **http-server** process. |
 =======
