@@ -4,8 +4,8 @@ import Scene from "./scenes/test";
 const config = {
   type: Phaser.AUTO,
   parent: "content",
-  width: 800,
-  height: 600,
+  width: 640,
+  height: 576,
   scene: [Scene]
 };
 

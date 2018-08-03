@@ -1,8 +1,16 @@
 # Food Jam
 
-### Contributions
+### Credits
 
-Forked from Phaser 3 Project Template by Richard Davey.
+Programming by [Robin "Evil Trout" Ward](https://eviltrout.com/)
+
+Artwork by [Cam Croft](https://www.instagram.com/croftworks/)
+
+### Resources Used
+
+Phaser 3 Project Template by Richard Davey (MIT)
+
+[Pixel Font](http://www.fontspace.com/jackster-productions/pokemon-gb)  by Jackster Productions (Freeware)
 
 ### Requirements
 
@@ -16,4 +24,3 @@ Run next commands in your terminal:
 |---------|-------------|
 | `yarn install` | Install dependencies and launch browser with examples.|
 | `yarn start` | Launch browser to show the examples. <br> Press `Ctrl + c` to kill **http-server** process. |
-=======

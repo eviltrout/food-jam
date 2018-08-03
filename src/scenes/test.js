@@ -7,19 +7,15 @@ export default class Test extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("logo", "assets/logo.png");
+    this.load.bitmapFont(
+      "gameboy",
+      "assets/gameboy-font.png",
+      "assets/gameboy-font.fnt"
+    );
+    this.cameras.main.setBackgroundColor("#ffffb5");
   }
 
   create() {
-    let logo = this.add.image(400, 150, "logo");
-
-    this.tweens.add({
-      targets: logo,
-      y: 450,
-      duration: 2000,
-      ease: "Power2",
-      yoyo: true,
-      loop: -1
-    });
+    let text = this.add.bitmapText(10, 10, "gameboy", "Hello world!");
   }
 }
