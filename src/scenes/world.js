@@ -1,39 +1,14 @@
-import Phaser from "phaser";
 import config from "../config";
+import { loadChef } from "../loaders/chef";
+import Base from "./base";
 
-const FRAME_RATE = 10;
 const CHEF_VELOCITY = 200;
 
-function chefFramesFor(prefix) {
-  return [1, 2, 3, 1, 4, 5].map(n => {
-    return { key: "everything", frame: `${prefix}${n}.png` };
-  });
-}
-
-export default class World extends Phaser.Scene {
+export default class World extends Base {
   constructor() {
     super({
       key: "World"
     });
-  }
-
-  addScaledSprite(x, y, name, opts = {}) {
-    let source = opts.noPhysics ? this : this.physics;
-    let sprite = source.add.sprite(x, y, "everything", `${name}.png`);
-    sprite.scaleX = config.spriteScale;
-    sprite.scaleY = config.spriteScale;
-    return sprite;
-  }
-
-  preload() {
-    this.load.multiatlas("everything", "assets/everything.json", "assets");
-
-    this.load.bitmapFont(
-      "gameboy",
-      "assets/gameboy-font.png",
-      "assets/gameboy-font.fnt"
-    );
-    this.cameras.main.setBackgroundColor("#ffffb5");
   }
 
   create() {
@@ -49,56 +24,25 @@ export default class World extends Phaser.Scene {
       }
     }
 
+    let chef = loadChef(this);
+    chef.setSize(10, 8).setOffset(3, 24);
+
+    chef.setCollideWorldBounds(true);
+
     let oven = this.addScaledSprite(config.width / 5, 220, "oven");
     let hole = this.addScaledSprite((config.width * 4) / 5, 220, "hole");
 
-    this.chef = this.addScaledSprite(
-      config.width / 2,
-      config.height / 2,
-      "chef-right1"
-    );
-    this.chef.scaleX = config.spriteScale;
-    this.chef.scaleY = config.spriteScale;
-    this.chef.setCollideWorldBounds(true);
-
-    this.chef.setSize(16, 10).setOffset(0, 22);
     this.cursors = this.input.keyboard.createCursorKeys();
-
-    this.anims.create({
-      key: "chef-idle",
-      frames: [{ key: "everything", frame: "chef-down1.png" }]
-    });
-
-    this.anims.create({
-      key: "chef-up",
-      frames: chefFramesFor("chef-up"),
-      frameRate: FRAME_RATE
-    });
-
-    this.anims.create({
-      key: "chef-down",
-      frames: chefFramesFor("chef-down"),
-      frameRate: FRAME_RATE
-    });
-
-    this.anims.create({
-      key: "chef-right",
-      frames: chefFramesFor("chef-right"),
-      frameRate: FRAME_RATE
-    });
-
-    // Default to idle chef
-    this.chef.anims.play("chef-idle", false);
 
     // Put some text on top
     this.add
       .bitmapText(config.width / 2, 50, "gameboy", "Cook or Collect?")
       .setOrigin(0.5);
 
-    this.physics.add.collider(this.chef, oven, this.touchedThing, null, this);
+    this.physics.add.collider(chef, oven, this.touchedThing, null, this);
     oven.body.immovable = true;
 
-    this.physics.add.collider(this.chef, hole, this.touchedHole, null, this);
+    this.physics.add.collider(chef, hole, this.touchedHole, null, this);
     hole.body.immovable = true;
   }
 
