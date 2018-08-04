@@ -12,17 +12,12 @@ export default class World extends Base {
   }
 
   create() {
-    // Create the background layer. Perhaps use a tilemap in the future?
-    for (let i = 0; i < 6; i++) {
-      for (let j = 0; j < 8; j++) {
-        this.addScaledSprite(
-          i * 30 * config.spriteScale,
-          j * 20 * config.spriteScale,
-          "bg-1",
-          { noPhysics: true }
-        ).setOrigin(0, 0);
-      }
-    }
+    this.bg = this.add
+      .tileSprite(0, 0, 320, 200, "everything", "bg-2.png")
+      .setOrigin(0, 0);
+
+    this.bg.scaleX = 4;
+    this.bg.scaleY = 4;
 
     let chef = loadChef(this);
     chef.setSize(10, 8).setOffset(3, 24);

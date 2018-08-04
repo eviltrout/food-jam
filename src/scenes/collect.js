@@ -15,10 +15,12 @@ export default class Collect extends Base {
 
   preload() {
     super.preload();
-    this.load.spritesheet("tiles", "assets/tilesheet.png", {
+    this.load.spritesheet("blocks", "assets/tilesheet.png", {
       frameWidth: 16,
       frameHeight: 16
     });
+
+    this.load.tilemapTiledJSON("level", "assets/collect-1.json");
   }
 
   create() {
@@ -27,33 +29,21 @@ export default class Collect extends Base {
     let chef = loadChef(this);
     chef.setSize(10, 22).setOffset(3, 10);
     chef.anims.play("chef-idle-right", false);
+    this.bg = this.add
+      .tileSprite(0, 0, 320, 200, "everything", "bg-2.png")
+      .setOrigin(0, 0);
 
-    let level = [
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    ];
+    this.bg.scaleX = 3;
+    this.bg.scaleY = 3;
+    this.bg.setScrollFactor(0);
 
-    let map = this.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
-    let tiles = map.addTilesetImage("tiles");
+    let map = this.make.tilemap({ key: "level" });
+    let tiles = map.addTilesetImage("blocks");
     let layer = map.createStaticLayer(0, tiles, 0, 0);
     layer.scaleX = config.spriteScale;
     layer.scaleY = config.spriteScale;
     this.physics.add.collider(chef, layer);
-    layer.setCollisionByExclusion(0);
+    layer.setCollisionByExclusion([-1]);
     this.cameras.main.setBounds(
       0,
       0,
@@ -68,6 +58,9 @@ export default class Collect extends Base {
   }
 
   update() {
+    this.bg.tilePositionX = this.cameras.main.worldView.x / 20;
+    this.bg.tilePositionY = this.cameras.main.worldView.y / 20;
+
     let { cursors, chef } = this;
 
     let onFloor = chef.body.onFloor();
@@ -80,8 +73,11 @@ export default class Collect extends Base {
       chef.setVelocityX(0);
     }
 
-    if (this.canJump && cursors.up.isDown && onFloor) {
+    if (!onFloor) {
       this.canJump = false;
+    }
+
+    if (this.canJump && cursors.up.isDown && onFloor) {
       chef.setVelocityY(-JUMP_VELOCITY);
     }
 

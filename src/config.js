@@ -7,7 +7,7 @@ export default {
   parent: "content",
   width: 640,
   height: 576,
-  scene: [Collect, World],
+  scene: [World, Collect],
   pixelArt: true,
   spriteScale: 4,
   physics: {

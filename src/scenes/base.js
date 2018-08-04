@@ -13,11 +13,15 @@ export default class Base extends Phaser.Scene {
     this.cameras.main.setBackgroundColor("#ffffb5");
   }
 
-  addScaledSprite(x, y, name, opts = {}) {
-    let source = opts.noPhysics ? this : this.physics;
-    let sprite = source.add.sprite(x, y, "everything", `${name}.png`);
+  scaleSprite(sprite) {
     sprite.scaleX = config.spriteScale;
     sprite.scaleY = config.spriteScale;
     return sprite;
+  }
+
+  addScaledSprite(x, y, name, opts = {}) {
+    let source = opts.noPhysics ? this : this.physics;
+    let sprite = source.add.sprite(x, y, "everything", `${name}.png`);
+    return this.scaleSprite(sprite);
   }
 }
