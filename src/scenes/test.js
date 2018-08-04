@@ -2,6 +2,13 @@ import Phaser from "phaser";
 import config from "../config";
 
 const FRAME_RATE = 10;
+const CHEF_VELOCITY = 200;
+
+function chefFramesFor(prefix) {
+  return [1, 2, 3, 1, 4, 5].map(n => {
+    return { key: "everything", frame: `${prefix}${n}.png` };
+  });
+}
 
 export default class Test extends Phaser.Scene {
   constructor() {
@@ -55,78 +62,48 @@ export default class Test extends Phaser.Scene {
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    let frames = this.anims.generateFrameNames("everything", {
-      start: 1,
-      end: 5,
-      prefix: "chef-right",
-      suffix: ".png"
-    });
-
     this.anims.create({
       key: "chef-idle",
       frames: [{ key: "everything", frame: "chef-down1.png" }]
     });
-    this.chef.anims.play("chef-idle", false);
 
     this.anims.create({
       key: "chef-up",
-      frames: [
-        { key: "everything", frame: "chef-up1.png" },
-        { key: "everything", frame: "chef-up2.png" },
-        { key: "everything", frame: "chef-up3.png" },
-        { key: "everything", frame: "chef-up1.png" },
-        { key: "everything", frame: "chef-up4.png" },
-        { key: "everything", frame: "chef-up5.png" }
-      ],
+      frames: chefFramesFor("chef-up"),
       frameRate: FRAME_RATE
     });
 
     this.anims.create({
       key: "chef-down",
-      frames: [
-        { key: "everything", frame: "chef-down1.png" },
-        { key: "everything", frame: "chef-down2.png" },
-        { key: "everything", frame: "chef-down3.png" },
-        { key: "everything", frame: "chef-down1.png" },
-        { key: "everything", frame: "chef-down4.png" },
-        { key: "everything", frame: "chef-down5.png" }
-      ],
+      frames: chefFramesFor("chef-down"),
       frameRate: FRAME_RATE
     });
 
     this.anims.create({
       key: "chef-right",
-      frames: [
-        { key: "everything", frame: "chef-right1.png" },
-        { key: "everything", frame: "chef-right2.png" },
-        { key: "everything", frame: "chef-right3.png" },
-        { key: "everything", frame: "chef-right1.png" },
-        { key: "everything", frame: "chef-right4.png" },
-        { key: "everything", frame: "chef-right5.png" }
-      ],
+      frames: chefFramesFor("chef-right"),
       frameRate: FRAME_RATE
     });
+
+    // Default to idle chef
+    this.chef.anims.play("chef-idle", false);
   }
 
   update() {
     let { cursors, chef } = this;
 
     if (cursors.left.isDown) {
-      chef.setVelocityX(-160);
-      chef.flipX = true;
-      console.log("left is down");
+      chef.setVelocityX(-CHEF_VELOCITY);
     } else if (cursors.right.isDown) {
-      chef.setVelocityX(160);
+      chef.setVelocityX(CHEF_VELOCITY);
     } else {
       chef.setVelocityX(0);
-      chef.flipX = false;
-      // player.anims.play('turn');
     }
 
     if (cursors.up.isDown) {
-      chef.setVelocityY(-160);
+      chef.setVelocityY(-CHEF_VELOCITY);
     } else if (cursors.down.isDown) {
-      chef.setVelocityY(160);
+      chef.setVelocityY(CHEF_VELOCITY);
     } else {
       chef.setVelocityY(0);
     }
