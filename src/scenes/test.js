@@ -17,6 +17,14 @@ export default class Test extends Phaser.Scene {
     });
   }
 
+  addScaledSprite(x, y, name, opts = {}) {
+    let source = opts.noPhysics ? this : this.physics;
+    let sprite = source.add.sprite(x, y, "everything", `${name}.png`);
+    sprite.scaleX = config.spriteScale;
+    sprite.scaleY = config.spriteScale;
+    return sprite;
+  }
+
   preload() {
     this.load.multiatlas("everything", "assets/everything.json", "assets");
 
@@ -32,34 +40,28 @@ export default class Test extends Phaser.Scene {
     // Create the background layer. Perhaps use a tilemap in the future?
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 8; j++) {
-        let bg = this.add
-          .sprite(
-            i * 30 * config.spriteScale,
-            j * 20 * config.spriteScale,
-            "everything",
-            "bg-1.png"
-          )
-          .setOrigin(0, 0);
-        bg.scaleX = config.spriteScale;
-        bg.scaleY = config.spriteScale;
+        this.addScaledSprite(
+          i * 30 * config.spriteScale,
+          j * 20 * config.spriteScale,
+          "bg-1",
+          { noPhysics: true }
+        ).setOrigin(0, 0);
       }
     }
 
-    this.add
-      .bitmapText(config.width / 2, 50, "gameboy", "Hello world!")
-      .setOrigin(0.5);
+    let oven = this.addScaledSprite(config.width / 5, 220, "oven");
+    let hole = this.addScaledSprite((config.width * 4) / 5, 220, "hole");
 
-    this.chef = this.physics.add.sprite(
+    this.chef = this.addScaledSprite(
       config.width / 2,
       config.height / 2,
-      "everything",
-      "chef-right1.png"
+      "chef-right1"
     );
     this.chef.scaleX = config.spriteScale;
     this.chef.scaleY = config.spriteScale;
-    this.chef.setBounce(0.2);
     this.chef.setCollideWorldBounds(true);
 
+    this.chef.setSize(16, 10).setOffset(0, 22);
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.anims.create({
@@ -87,6 +89,17 @@ export default class Test extends Phaser.Scene {
 
     // Default to idle chef
     this.chef.anims.play("chef-idle", false);
+
+    // Put some text on top
+    this.add
+      .bitmapText(config.width / 2, 50, "gameboy", "Cook or Collect?")
+      .setOrigin(0.5);
+
+    this.physics.add.collider(this.chef, oven);
+    oven.body.immovable = true;
+
+    this.physics.add.collider(this.chef, hole);
+    hole.body.immovable = true;
   }
 
   update() {
