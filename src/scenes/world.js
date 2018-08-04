@@ -10,10 +10,10 @@ function chefFramesFor(prefix) {
   });
 }
 
-export default class Test extends Phaser.Scene {
+export default class World extends Phaser.Scene {
   constructor() {
     super({
-      key: "TestScene"
+      key: "World"
     });
   }
 
@@ -95,11 +95,17 @@ export default class Test extends Phaser.Scene {
       .bitmapText(config.width / 2, 50, "gameboy", "Cook or Collect?")
       .setOrigin(0.5);
 
-    this.physics.add.collider(this.chef, oven);
+    this.physics.add.collider(this.chef, oven, this.touchedThing, null, this);
     oven.body.immovable = true;
 
-    this.physics.add.collider(this.chef, hole);
+    this.physics.add.collider(this.chef, hole, this.touchedHole, null, this);
     hole.body.immovable = true;
+  }
+
+  touchedOven() {}
+
+  touchedHole() {
+    this.scene.start("Collect");
   }
 
   update() {
