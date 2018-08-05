@@ -10,14 +10,12 @@ function chefFramesFor(prefix) {
   return [1, 2, 3, 1, 4, 5].map(n => createFrame(`${prefix}${n}`));
 }
 
-export function loadChef(target) {
-  let chef = target.addScaledSprite(
-    config.width / 2,
-    config.height / 2,
-    "chef-right1"
-  );
-  chef.scaleX = config.spriteScale;
-  chef.scaleY = config.spriteScale;
+let createdAnimations = false;
+
+function createAnimations(target) {
+  if (createdAnimations) {
+    return;
+  }
 
   target.anims.create({
     key: "chef-idle",
@@ -69,6 +67,20 @@ export function loadChef(target) {
     frameRate: FRAME_RATE / 3,
     repeat: -1
   });
+
+  createdAnimations = true;
+}
+
+export function loadChef(target) {
+  createAnimations(target);
+
+  let chef = target.addScaledSprite(
+    config.width / 2,
+    config.height / 2,
+    "chef-right1"
+  );
+  chef.scaleX = config.spriteScale;
+  chef.scaleY = config.spriteScale;
 
   // Default to idle facing forward chef
   chef.anims.play("chef-idle", false);

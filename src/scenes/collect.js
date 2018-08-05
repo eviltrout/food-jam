@@ -13,9 +13,6 @@ export default class Collect extends Base {
     super({
       key: "Collect"
     });
-
-    this.inventory = [];
-    this.dead = false;
   }
 
   preload() {
@@ -33,6 +30,9 @@ export default class Collect extends Base {
   }
 
   create() {
+    this.inventory = [];
+    this.dead = false;
+
     this.physics.world.gravity.y = GRAVITY;
 
     this.jumpSound = this.sound.add("jump");
