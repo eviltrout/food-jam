@@ -4,7 +4,7 @@
 			"image": "tilesheet.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 64,
+				"w": 80,
 				"h": 16
 			},
 			"scale": 1,
@@ -92,6 +92,27 @@
 						"w": 16,
 						"h": 16
 					}
+				},
+				{
+					"filename": "grill.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 16,
+						"h": 16
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					},
+					"frame": {
+						"x": 64,
+						"y": 0,
+						"w": 16,
+						"h": 16
+					}
 				}
 			]
 		}
@@ -99,6 +120,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:83c144531a33a299b39b7365c38c9f5f:665d46c13d30cb27c00852dcaa9d3e5a:3d1796b17358e00e40886a2f90737def$"
+		"smartupdate": "$TexturePacker:SmartUpdate:3f5c45f7905469187dfc569799f99f9a:967545162d0f97e2a70a46368e0b27ee:3d1796b17358e00e40886a2f90737def$"
 	}
 }

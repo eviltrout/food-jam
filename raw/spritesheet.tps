@@ -211,6 +211,7 @@
             <key type="filename">crab.png</key>
             <key type="filename">crabsleg.png</key>
             <key type="filename">egg.png</key>
+            <key type="filename">fire.png</key>
             <key type="filename">fish.png</key>
             <key type="filename">flour.png</key>
             <key type="filename">friedegg.png</key>
@@ -352,6 +353,7 @@
             <filename>whitewine.png</filename>
             <filename>egg.png</filename>
             <filename>roastchicken.png</filename>
+            <filename>fire.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

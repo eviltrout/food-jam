@@ -185,6 +185,7 @@
             <key type="filename">block-1.png</key>
             <key type="filename">block-2.png</key>
             <key type="filename">block-3.png</key>
+            <key type="filename">grill.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -204,6 +205,7 @@
             <filename>block-2.png</filename>
             <filename>block-3.png</filename>
             <filename>block-0.png</filename>
+            <filename>grill.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

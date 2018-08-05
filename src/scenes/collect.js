@@ -104,6 +104,23 @@ export default class Collect extends Base {
           chef.x = mx;
           chef.y = my;
           break;
+        case "fire":
+          let fire = this.addScaledSprite(mx, my, "fire");
+          fire.body.allowGravity = false;
+          fire.setSize(11, 11).setOffset(3, 4);
+          this.physics.add.collider(fire, chef, this.playerDied, null, this);
+          this.tweens.add({
+            targets: fire,
+            scaleY: config.spriteScale * 0.9,
+            alpha: 0.8,
+            scaleX: config.spriteScale * 0.9,
+            duration: 200,
+            delay: Math.random() * 200,
+            ease: "Sinusoidal",
+            yoyo: true,
+            loop: -1
+          });
+          break;
       }
     });
 

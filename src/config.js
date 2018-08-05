@@ -8,7 +8,7 @@ export default {
   parent: "content",
   width: 640,
   height: 576,
-  scene: [World, Collect, Dead],
+  scene: [Collect, World, Dead],
   pixelArt: true,
   spriteScale: 4,
   physics: {
