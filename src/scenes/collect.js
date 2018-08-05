@@ -15,6 +15,7 @@ export default class Collect extends Base {
     });
 
     this.inventory = [];
+    this.dead = false;
   }
 
   preload() {
@@ -26,6 +27,7 @@ export default class Collect extends Base {
 
     this.load.audio("jump", "assets/jump.wav");
     this.load.audio("collect", "assets/collect.wav");
+    this.load.audio("death", "assets/death.wav");
 
     this.load.tilemapTiledJSON("level", "assets/collect-1.json");
   }
@@ -37,11 +39,15 @@ export default class Collect extends Base {
     this.jumpSound.volume = VOLUME;
     this.collectSound = this.sound.add("collect");
     this.collectSound.volume = VOLUME;
+    this.deathSound = this.sound.add("death");
+    this.deathSound.volume = VOLUME;
 
     let chef = loadChef(this);
     chef.setSize(10, 22).setOffset(3, 10);
     chef.anims.play("chef-idle-right", false);
     chef.body.setCollideWorldBounds(true);
+    chef.body.onWorldBounds = true;
+
     this.bg = this.add
       .tileSprite(0, 0, 320, 200, "everything", "bg-1.png")
       .setOrigin(0, 0);
@@ -63,6 +69,8 @@ export default class Collect extends Base {
 
     this.cameras.main.setBounds(0, 0, fullWidth, fullHeight);
     this.physics.world.setBounds(0, 0, fullWidth, fullHeight);
+
+    this.physics.world.on("worldbounds", this.collideBounds, this);
 
     this.cameras.main.startFollow(chef, false, 0.2, 0.2, 0, 100);
 
@@ -111,7 +119,42 @@ export default class Collect extends Base {
     this.canJump = true;
   }
 
+  playerDied() {
+    if (this.dead) {
+      return;
+    }
+
+    this.dead = true;
+    this.physics.pause();
+    this.deathSound.play();
+
+    this.cameras.main.stopFollow();
+    this.chef.anims.play("chef-death", false);
+    this.tweens.add({
+      targets: this.chef,
+      y: 0,
+      duration: 2000,
+      ease: "Bounce",
+      yoyo: false,
+      loop: 0,
+      onComplete: () => {
+        this.scene.start("Dead");
+      }
+    });
+    this.cameras.main.fade(2000, 255, 255, 181);
+  }
+
+  collideBounds(world, up, down) {
+    if (down) {
+      this.playerDied();
+    }
+  }
+
   collect(thing, chef) {
+    if (this.dead) {
+      return;
+    }
+
     if (chef === this.chef) {
       this.inventory.push(thing.data.get("id"));
       thing.destroy();
@@ -122,13 +165,12 @@ export default class Collect extends Base {
     }
   }
 
-  update() {
-    this.bg.tilePositionX = this.cameras.main.worldView.x / 20;
-    this.bg.tilePositionY = this.cameras.main.worldView.y / 20;
+  handleInput(chef, onFloor) {
+    if (this.dead) {
+      return;
+    }
 
-    let { cursors, chef } = this;
-
-    let onFloor = chef.body.onFloor();
+    let { cursors } = this;
 
     if (cursors.left.isDown) {
       chef.setVelocityX(-CHEF_VELOCITY);
@@ -153,6 +195,12 @@ export default class Collect extends Base {
     if (cursors.up.isUp) {
       this.canJump = true;
     }
+  }
+
+  handleChefDisplay(chef, onFloor) {
+    if (this.dead) {
+      return;
+    }
 
     let v = chef.body.velocity;
 
@@ -171,5 +219,16 @@ export default class Collect extends Base {
     } else {
       chef.anims.play("chef-jump", true);
     }
+  }
+
+  update() {
+    this.bg.tilePositionX = this.cameras.main.worldView.x / 20;
+    this.bg.tilePositionY = this.cameras.main.worldView.y / 20;
+
+    let { chef } = this;
+    let onFloor = chef.body.onFloor();
+
+    this.handleInput(chef, onFloor);
+    this.handleChefDisplay(chef, onFloor);
   }
 }

@@ -52,6 +52,24 @@ export function loadChef(target) {
     frameRate: FRAME_RATE
   });
 
+  target.anims.create({
+    key: "chef-death",
+    frames: [
+      createFrame("chef-right1"),
+      createFrame("chef-up1"),
+      createFrame("chef-down1")
+    ],
+    frameRate: FRAME_RATE,
+    repeat: -1
+  });
+
+  target.anims.create({
+    key: "chef-sad",
+    frames: [createFrame("chef-down1"), createFrame("chef-down2")],
+    frameRate: FRAME_RATE / 3,
+    repeat: -1
+  });
+
   // Default to idle facing forward chef
   chef.anims.play("chef-idle", false);
 
