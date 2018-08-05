@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2017.07.26" orientation="orthogonal" renderorder="right-down" width="50" height="17" tilewidth="16" tileheight="16" nextobjectid="36">
+<map version="1.0" tiledversion="2017.07.26" orientation="orthogonal" renderorder="right-down" width="50" height="17" tilewidth="16" tileheight="16" nextobjectid="47">
  <tileset firstgid="1" name="blocks" tilewidth="16" tileheight="16" tilecount="5" columns="5">
   <image source="../assets/tilesheet.png" trans="ff00ff" width="80" height="16"/>
  </tileset>
@@ -18,19 +18,58 @@
 0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-2,2,2,2,2,2,5,5,5,2,2,3,2,0,0,0,0,2,2,2,2,2,2,2,2,0,0,2,2,2,2,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,2,2,2,2,2,5,5,5,2,2,3,2,0,0,0,0,2,2,2,2,2,2,2,2,0,0,2,2,2,2,0,0,0,2,2,2,2,2,2,5,2,5,2,5,2,5,2,2,2,
 3,3,3,3,3,3,3,3,3,3,3,3,2,0,0,0,0,2,3,3,3,3,3,3,2,0,0,2,3,3,2,0,0,0,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 4,4,4,4,4,4,4,4,4,4,4,3,2,0,0,0,0,2,3,4,4,4,4,3,2,0,0,2,3,3,2,0,0,0,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,3,2,0,0,0,0,2,3,4,4,4,4,3,2,0,0,2,3,3,2,0,0,0,2,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4
 </data>
  </layer>
  <objectgroup name="Entities">
+  <properties>
+   <property name="offset" type="int" value="50"/>
+  </properties>
   <object id="22" name="chef-enter" x="29.25" y="181.75" width="15.3333" height="15"/>
   <object id="26" name="spawn-ingredient" x="237.333" y="98.917" width="18" height="16.3333"/>
-  <object id="29" name="spawn-ingredient" x="406.333" y="185.417" width="18" height="16.3333"/>
+  <object id="29" name="spawn-ingredient" x="406.208" y="158.667" width="18" height="16.3333"/>
   <object id="30" name="spawn-ingredient" x="510.333" y="158.417" width="18" height="16.3333"/>
-  <object id="31" name="fire" x="96.625" y="195.875" width="14.75" height="16"/>
-  <object id="34" name="fire" x="112.75" y="195.625" width="14.75" height="16"/>
-  <object id="35" name="fire" x="129.375" y="196" width="14.75" height="16"/>
+  <object id="31" name="fire" x="96.625" y="195.875" width="14.75" height="16">
+   <properties>
+    <property name="delay" type="int" value="100"/>
+   </properties>
+  </object>
+  <object id="36" name="fire" x="113.5" y="195.875" width="14.75" height="16">
+   <properties>
+    <property name="delay" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="37" name="fire" x="130.25" y="195.875" width="14.75" height="16">
+   <properties>
+    <property name="delay" type="int" value="300"/>
+   </properties>
+  </object>
+  <object id="39" name="spawn-ingredient" x="111.583" y="170.292" width="18" height="16.3333"/>
+  <object id="40" name="fire" x="672.5" y="193.5" width="14.75" height="16">
+   <properties>
+    <property name="delay" type="int" value="300"/>
+   </properties>
+  </object>
+  <object id="41" name="fire" x="641.375" y="194.625" width="14.75" height="16">
+   <properties>
+    <property name="delay" type="int" value="300"/>
+   </properties>
+  </object>
+  <object id="42" name="fire" x="705" y="194.5" width="14.75" height="16">
+   <properties>
+    <property name="delay" type="int" value="300"/>
+   </properties>
+  </object>
+  <object id="43" name="fire" x="737.125" y="195" width="14.75" height="16">
+   <properties>
+    <property name="delay" type="int" value="300"/>
+   </properties>
+  </object>
+  <object id="44" name="spawn-ingredient" x="719.25" y="171.708" width="18" height="16.3333"/>
+  <object id="45" name="spawn-ingredient" x="655.75" y="171.333" width="18" height="16.3333"/>
+  <object id="46" name="spawn-ingredient" x="687.875" y="171.833" width="18" height="16.3333"/>
  </objectgroup>
 </map>

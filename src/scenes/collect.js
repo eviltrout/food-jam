@@ -24,6 +24,7 @@ export default class Collect extends Base {
     this.load.audio("jump", "assets/jump.wav");
     this.load.audio("collect", "assets/collect.wav");
     this.load.audio("death", "assets/death.wav");
+    this.load.audio("fire", "assets/fire.wav");
 
     this.load.tilemapTiledJSON("level", "assets/collect-1.json");
   }
@@ -40,6 +41,8 @@ export default class Collect extends Base {
     this.collectSound.volume = config.volume;
     this.deathSound = this.sound.add("death");
     this.deathSound.volume = config.volume;
+    this.fireSound = this.sound.add("fire");
+    this.fireSound.volume = config.volume;
 
     let chef = loadChef(this);
     chef.setSize(10, 22).setOffset(3, 10);
@@ -81,6 +84,8 @@ export default class Collect extends Base {
       let mx = (obj.x + obj.width / 2) * config.spriteScale;
       let my = (obj.y + obj.height / 2) * config.spriteScale;
 
+      let props = obj.properties || {};
+
       switch (obj.name) {
         case "spawn-ingredient":
           let idx = Math.floor(Math.random() * ingredients.length);
@@ -105,9 +110,13 @@ export default class Collect extends Base {
           chef.y = my;
           break;
         case "fire":
+          console.log(obj);
           let fire = this.addScaledSprite(mx, my, "fire");
           fire.body.allowGravity = false;
           fire.setSize(11, 11).setOffset(3, 4);
+          fire.body.immovable = true;
+          fire.visible = false;
+          fire.body.enable = false;
           this.physics.add.collider(fire, chef, this.playerDied, null, this);
           this.tweens.add({
             targets: fire,
@@ -118,6 +127,20 @@ export default class Collect extends Base {
             delay: Math.random() * 200,
             ease: "Sinusoidal",
             yoyo: true,
+            loop: -1
+          });
+
+          this.tweens.addCounter({
+            delay: props.delay || 0,
+            duration: props.duration || 500,
+            onLoop: () => {
+              fire.visible = !fire.visible;
+              fire.body.enable = !fire.body.enable;
+
+              if (fire.visible) {
+                this.fireSound.play();
+              }
+            },
             loop: -1
           });
           break;
