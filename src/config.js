@@ -7,13 +7,13 @@ export default {
   parent: "content",
   width: 640,
   height: 576,
-  scene: [World, Collect],
+  scene: [Collect, World],
   pixelArt: true,
   spriteScale: 4,
   physics: {
     default: "arcade",
     arcade: {
-      debug: true
+      // debug: true
     }
   }
 };

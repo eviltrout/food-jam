@@ -13,7 +13,7 @@ export default class World extends Base {
 
   create() {
     this.bg = this.add
-      .tileSprite(0, 0, 320, 200, "everything", "bg-2.png")
+      .tileSprite(0, 0, 320, 200, "everything", "bg-1.png")
       .setOrigin(0, 0);
 
     this.bg.scaleX = 4;

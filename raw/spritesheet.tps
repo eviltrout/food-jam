@@ -181,10 +181,75 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">banana.png</key>
+            <key type="filename">jalapeno.png</key>
+            <key type="filename">pepper.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,4,8,7</rect>
+                <key>scale9Paddings</key>
+                <rect>4,4,8,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">bean.png</key>
+            <key type="filename">beer.png</key>
+            <key type="filename">boiledegg.png</key>
+            <key type="filename">bonbon.png</key>
+            <key type="filename">bread.png</key>
+            <key type="filename">burger.png</key>
+            <key type="filename">carrot.png</key>
+            <key type="filename">cherries.png</key>
+            <key type="filename">chicken.png</key>
+            <key type="filename">chocolate.png</key>
+            <key type="filename">cocktail.png</key>
+            <key type="filename">coconut.png</key>
+            <key type="filename">crab.png</key>
+            <key type="filename">crabsleg.png</key>
+            <key type="filename">egg.png</key>
+            <key type="filename">fish.png</key>
+            <key type="filename">flour.png</key>
+            <key type="filename">friedegg.png</key>
+            <key type="filename">gelatin.png</key>
+            <key type="filename">grapes.png</key>
+            <key type="filename">hole.png</key>
+            <key type="filename">kebab.png</key>
+            <key type="filename">meal.png</key>
+            <key type="filename">meat.png</key>
+            <key type="filename">milk.png</key>
+            <key type="filename">mouse.png</key>
+            <key type="filename">mushroom.png</key>
+            <key type="filename">nightmare.png</key>
+            <key type="filename">oven.png</key>
+            <key type="filename">pasta.png</key>
+            <key type="filename">pineapple.png</key>
+            <key type="filename">pizza.png</key>
+            <key type="filename">redwine.png</key>
+            <key type="filename">roastchicken.png</key>
+            <key type="filename">salt.png</key>
+            <key type="filename">sandwich.png</key>
+            <key type="filename">squid.png</key>
+            <key type="filename">sugar.png</key>
+            <key type="filename">sushi.png</key>
+            <key type="filename">whip.png</key>
+            <key type="filename">whitewine.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,4,8,8</rect>
+                <key>scale9Paddings</key>
+                <rect>4,4,8,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">bg-1.png</key>
-            <key type="filename">bg-2.png</key>
-            <key type="filename">bg-3.png</key>
-            <key type="filename">bg-4.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -224,26 +289,10 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">sushi.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>4,4,8,8</rect>
-                <key>scale9Paddings</key>
-                <rect>4,4,8,8</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
         </map>
         <key>fileList</key>
         <array>
             <filename>bg-1.png</filename>
-            <filename>bg-2.png</filename>
-            <filename>bg-3.png</filename>
-            <filename>bg-4.png</filename>
             <filename>chef-down1.png</filename>
             <filename>chef-down2.png</filename>
             <filename>chef-down3.png</filename>
@@ -260,6 +309,49 @@
             <filename>chef-up4.png</filename>
             <filename>chef-up5.png</filename>
             <filename>sushi.png</filename>
+            <filename>hole.png</filename>
+            <filename>oven.png</filename>
+            <filename>banana.png</filename>
+            <filename>bean.png</filename>
+            <filename>beer.png</filename>
+            <filename>boiledegg.png</filename>
+            <filename>bonbon.png</filename>
+            <filename>bread.png</filename>
+            <filename>burger.png</filename>
+            <filename>carrot.png</filename>
+            <filename>cherries.png</filename>
+            <filename>chicken.png</filename>
+            <filename>chocolate.png</filename>
+            <filename>cocktail.png</filename>
+            <filename>coconut.png</filename>
+            <filename>crab.png</filename>
+            <filename>crabsleg.png</filename>
+            <filename>fish.png</filename>
+            <filename>flour.png</filename>
+            <filename>friedegg.png</filename>
+            <filename>gelatin.png</filename>
+            <filename>grapes.png</filename>
+            <filename>jalapeno.png</filename>
+            <filename>kebab.png</filename>
+            <filename>meal.png</filename>
+            <filename>meat.png</filename>
+            <filename>milk.png</filename>
+            <filename>mouse.png</filename>
+            <filename>mushroom.png</filename>
+            <filename>nightmare.png</filename>
+            <filename>pasta.png</filename>
+            <filename>pepper.png</filename>
+            <filename>pineapple.png</filename>
+            <filename>pizza.png</filename>
+            <filename>redwine.png</filename>
+            <filename>salt.png</filename>
+            <filename>sandwich.png</filename>
+            <filename>squid.png</filename>
+            <filename>sugar.png</filename>
+            <filename>whip.png</filename>
+            <filename>whitewine.png</filename>
+            <filename>egg.png</filename>
+            <filename>roastchicken.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

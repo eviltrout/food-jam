@@ -1,6 +1,7 @@
 import Base from "./base";
 import config from "../config";
 import { loadChef } from "../loaders/chef";
+import ingredients from "../db/ingredients";
 
 const CHEF_VELOCITY = 260;
 const GRAVITY = 1000;
@@ -11,6 +12,8 @@ export default class Collect extends Base {
     super({
       key: "Collect"
     });
+
+    this.inventory = [];
   }
 
   preload() {
@@ -30,7 +33,7 @@ export default class Collect extends Base {
     chef.setSize(10, 22).setOffset(3, 10);
     chef.anims.play("chef-idle-right", false);
     this.bg = this.add
-      .tileSprite(0, 0, 320, 200, "everything", "bg-2.png")
+      .tileSprite(0, 0, 320, 200, "everything", "bg-1.png")
       .setOrigin(0, 0);
 
     this.bg.scaleX = 3;
@@ -54,7 +57,48 @@ export default class Collect extends Base {
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
+    map.filterObjects("Entities", obj => {
+      if (!obj.rectangle) {
+        return;
+      }
+
+      let mx = (obj.x + obj.width / 2) * config.spriteScale;
+      let my = (obj.y + obj.height / 2) * config.spriteScale;
+
+      switch (obj.name) {
+        case "spawn-food":
+          let idx = Math.floor(Math.random() * ingredients.length);
+          let ingredient = ingredients[idx];
+          let food = this.addScaledSprite(mx, my, ingredient.id);
+          food.setDataEnabled();
+          food.data.set("id", ingredient.id);
+          this.physics.add.collider(food, layer);
+          this.physics.add.collider(food, chef, this.collectFood, null, this);
+
+          break;
+        case "chef-enter":
+          chef.x = mx;
+          chef.y = my;
+          break;
+      }
+    });
+
+    // Put some text on top
+    this.score = this.add
+      .bitmapText(0, config.height, "gameboy", "Items: 0")
+      .setOrigin(0, 1)
+      .setScrollFactor(0);
+
     this.canJump = true;
+  }
+
+  collectFood(food, chef) {
+    if (chef === this.chef) {
+      this.inventory.push(food.data.get("id"));
+      food.destroy();
+
+      this.score.text = "Items: " + this.inventory.length;
+    }
   }
 
   update() {

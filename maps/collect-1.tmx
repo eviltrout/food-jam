@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2017.07.26" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" nextobjectid="1">
+<map version="1.0" tiledversion="2017.07.26" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" nextobjectid="29">
  <tileset firstgid="1" name="blocks" tilewidth="16" tileheight="16" tilecount="4" columns="4">
   <image source="../assets/tilesheet.png" trans="ff00ff" width="64" height="16"/>
  </tileset>
- <layer name="Tile Layer 1" width="50" height="50">
+ <layer name="Map" width="50" height="50">
   <data encoding="csv">
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -57,4 +57,12 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup name="Entities">
+  <object id="14" name="spawn-food" x="103.667" y="46" width="18" height="16.3333"/>
+  <object id="22" name="chef-enter" x="22" y="72" width="15.3333" height="15"/>
+  <object id="25" name="spawn-food" x="249.333" y="76" width="18" height="16.3333"/>
+  <object id="26" name="spawn-food" x="21.3333" y="156.667" width="18" height="16.3333"/>
+  <object id="27" name="spawn-food" x="22.6667" y="233.667" width="18" height="16.3333"/>
+  <object id="28" name="spawn-food" x="248.667" y="234.667" width="18" height="16.3333"/>
+ </objectgroup>
 </map>
