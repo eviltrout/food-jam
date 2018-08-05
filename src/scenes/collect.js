@@ -3,9 +3,10 @@ import config from "../config";
 import { loadChef } from "../loaders/chef";
 import ingredients from "../db/ingredients";
 
-const CHEF_VELOCITY = 260;
-const GRAVITY = 1000;
+const CHEF_VELOCITY = 500;
+const GRAVITY = 2000;
 const JUMP_VELOCITY = 800;
+const VOLUME = 0.05;
 
 export default class Collect extends Base {
   constructor() {
@@ -23,15 +24,24 @@ export default class Collect extends Base {
       frameHeight: 16
     });
 
+    this.load.audio("jump", "assets/jump.wav");
+    this.load.audio("collect", "assets/collect.wav");
+
     this.load.tilemapTiledJSON("level", "assets/collect-1.json");
   }
 
   create() {
     this.physics.world.gravity.y = GRAVITY;
 
+    this.jumpSound = this.sound.add("jump");
+    this.jumpSound.volume = VOLUME;
+    this.collectSound = this.sound.add("collect");
+    this.collectSound.volume = VOLUME;
+
     let chef = loadChef(this);
     chef.setSize(10, 22).setOffset(3, 10);
     chef.anims.play("chef-idle-right", false);
+    chef.body.setCollideWorldBounds(true);
     this.bg = this.add
       .tileSprite(0, 0, 320, 200, "everything", "bg-1.png")
       .setOrigin(0, 0);
@@ -47,13 +57,14 @@ export default class Collect extends Base {
     layer.scaleY = config.spriteScale;
     this.physics.add.collider(chef, layer);
     layer.setCollisionByExclusion([-1]);
-    this.cameras.main.setBounds(
-      0,
-      0,
-      map.widthInPixels * config.spriteScale,
-      map.heightInPixels * config.spriteScale
-    );
-    this.cameras.main.startFollow(chef);
+
+    let fullWidth = map.widthInPixels * config.spriteScale;
+    let fullHeight = map.heightInPixels * config.spriteScale;
+
+    this.cameras.main.setBounds(0, 0, fullWidth, fullHeight);
+    this.physics.world.setBounds(0, 0, fullWidth, fullHeight);
+
+    this.cameras.main.startFollow(chef, false, 0.2, 0.2, 0, 100);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -66,16 +77,16 @@ export default class Collect extends Base {
       let my = (obj.y + obj.height / 2) * config.spriteScale;
 
       switch (obj.name) {
-        case "spawn-food":
+        case "spawn-ingredient":
           let idx = Math.floor(Math.random() * ingredients.length);
           let ingredient = ingredients[idx];
-          let food = this.addScaledSprite(mx, my, ingredient.id);
-          food.setDataEnabled();
-          food.data.set("id", ingredient.id);
-          food.body.allowGravity = false;
-          this.physics.add.collider(food, chef, this.collectFood, null, this);
+          let item = this.addScaledSprite(mx, my, ingredient.id);
+          item.setDataEnabled();
+          item.data.set("id", item.id);
+          item.body.allowGravity = false;
+          this.physics.add.collider(item, chef, this.collect, null, this);
           this.tweens.add({
-            targets: food,
+            targets: item,
             y: my - 16,
             duration: 500,
             ease: "Sinusoidal",
@@ -93,17 +104,19 @@ export default class Collect extends Base {
 
     // Put some text on top
     this.score = this.add
-      .bitmapText(0, config.height, "gameboy", "Items: 0")
-      .setOrigin(0, 1)
+      .bitmapText(config.width - 10, 10, "gameboy", "Items: 0")
+      .setOrigin(1, 0)
       .setScrollFactor(0);
 
     this.canJump = true;
   }
 
-  collectFood(food, chef) {
+  collect(thing, chef) {
     if (chef === this.chef) {
-      this.inventory.push(food.data.get("id"));
-      food.destroy();
+      this.inventory.push(thing.data.get("id"));
+      thing.destroy();
+
+      this.collectSound.play();
 
       this.score.text = "Items: " + this.inventory.length;
     }
@@ -130,6 +143,7 @@ export default class Collect extends Base {
     }
 
     if (this.canJump && cursors.up.isDown && onFloor) {
+      this.jumpSound.play();
       chef.setVelocityY(-JUMP_VELOCITY);
     }
 
