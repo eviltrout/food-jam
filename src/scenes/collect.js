@@ -6,7 +6,6 @@ import ingredients from "../db/ingredients";
 const CHEF_VELOCITY = 500;
 const GRAVITY = 2000;
 const JUMP_VELOCITY = 800;
-const VOLUME = 0.05;
 
 export default class Collect extends Base {
   constructor() {
@@ -36,11 +35,11 @@ export default class Collect extends Base {
     this.physics.world.gravity.y = GRAVITY;
 
     this.jumpSound = this.sound.add("jump");
-    this.jumpSound.volume = VOLUME;
+    this.jumpSound.volume = config.volume;
     this.collectSound = this.sound.add("collect");
-    this.collectSound.volume = VOLUME;
+    this.collectSound.volume = config.volume;
     this.deathSound = this.sound.add("death");
-    this.deathSound.volume = VOLUME;
+    this.deathSound.volume = config.volume;
 
     let chef = loadChef(this);
     chef.setSize(10, 22).setOffset(3, 10);
@@ -71,8 +70,6 @@ export default class Collect extends Base {
     this.physics.world.setBounds(0, 0, fullWidth, fullHeight);
 
     this.physics.world.on("worldbounds", this.collideBounds, this);
-
-    this.cameras.main.startFollow(chef, false, 0.2, 0.2, 0, 100);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -116,6 +113,7 @@ export default class Collect extends Base {
       .setOrigin(1, 0)
       .setScrollFactor(0);
 
+    this.cameras.main.startFollow(chef, false, 0.2, 0.2, 0, 100);
     this.canJump = true;
   }
 
@@ -132,9 +130,9 @@ export default class Collect extends Base {
     this.chef.anims.play("chef-death", false);
     this.tweens.add({
       targets: this.chef,
-      y: 0,
+      y: this.chef.y - config.height,
       duration: 2000,
-      ease: "Bounce",
+      ease: "Cubic",
       yoyo: false,
       loop: 0,
       onComplete: () => {

@@ -11,7 +11,17 @@ export default class World extends Base {
     });
   }
 
+  preload() {
+    super.preload();
+    this.load.audio("enter", "assets/enter.wav");
+  }
+
   create() {
+    this.transitioning = false;
+
+    this.enterSound = this.sound.add("enter");
+    this.enterSound.volume = config.volume;
+
     this.bg = this.add
       .tileSprite(0, 0, 320, 200, "everything", "bg-1.png")
       .setOrigin(0, 0);
@@ -21,6 +31,7 @@ export default class World extends Base {
 
     let chef = loadChef(this);
     chef.setSize(10, 8).setOffset(3, 24);
+    chef.y = (config.height * 4) / 5;
 
     chef.setCollideWorldBounds(true);
 
@@ -44,10 +55,26 @@ export default class World extends Base {
   touchedOven() {}
 
   touchedHole() {
-    this.scene.start("Collect");
+    if (this.transitioning) {
+      return;
+    }
+
+    this.enterSound.play();
+    this.transitioning = true;
+    this.chef.setVelocity(0);
+
+    this.cameras.main.fade(500, 255, 255, 181, false, (camera, complete) => {
+      if (complete === 1) {
+        this.scene.start("Collect");
+      }
+    });
   }
 
   update() {
+    if (this.transitioning) {
+      return;
+    }
+
     let { cursors, chef } = this;
 
     if (cursors.left.isDown) {

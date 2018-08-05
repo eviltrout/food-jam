@@ -8,7 +8,7 @@ export default {
   parent: "content",
   width: 640,
   height: 576,
-  scene: [Collect, World, Dead],
+  scene: [World, Collect, Dead],
   pixelArt: true,
   spriteScale: 4,
   physics: {
@@ -16,5 +16,6 @@ export default {
     arcade: {
       // debug: true
     }
-  }
+  },
+  volume: 0.05
 };
