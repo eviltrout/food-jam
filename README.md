@@ -12,7 +12,7 @@ Artwork by [Cam Croft](https://www.instagram.com/croftworks/)
 
 [TexturePacker](https://www.codeandweb.com/texturepacker)
 
-Phaser 3 Project Template by Richard Davey (MIT)
+[Phaser 3 Project Template](https://github.com/photonstorm/phaser3-project-template) by Richard Davey (MIT)
 
 [Pixel Font](http://www.fontspace.com/jackster-productions/pokemon-gb)  by Jackster Productions (Freeware)
 

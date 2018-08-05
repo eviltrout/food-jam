@@ -72,8 +72,16 @@ export default class Collect extends Base {
           let food = this.addScaledSprite(mx, my, ingredient.id);
           food.setDataEnabled();
           food.data.set("id", ingredient.id);
-          this.physics.add.collider(food, layer);
+          food.body.allowGravity = false;
           this.physics.add.collider(food, chef, this.collectFood, null, this);
+          this.tweens.add({
+            targets: food,
+            y: my - 16,
+            duration: 500,
+            ease: "Sinusoidal",
+            yoyo: true,
+            loop: -1
+          });
 
           break;
         case "chef-enter":
